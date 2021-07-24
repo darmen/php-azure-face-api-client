@@ -48,4 +48,11 @@ class Client
         $this->httpClientOptions = $httpClientOptions;
         $this->httpClient = $httpClient;
     }
+
+    public function __call($name, $arguments)
+    {
+        $resource = 'Darmen\\AzureFace\\Resources\\' . ucfirst($name);
+
+        return new $resource($this->httpClient, ...$arguments);
+    }
 }
