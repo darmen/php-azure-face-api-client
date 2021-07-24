@@ -18,6 +18,11 @@ class AzureFaceServiceProvider extends ServiceProvider
         $this->registerConfiguration();
     }
 
+    /**
+     * Asserts Configuration for missing endpoint and/or subscription key,
+     *
+     * @throws InvalidArgumentException
+     */
     private function assertConfiguration()
     {
         if (config('azure_face.endpoint') === null) {
