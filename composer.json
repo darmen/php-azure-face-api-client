@@ -9,5 +9,8 @@
             "email": "darmen.amanbayev@gmail.com"
         }
     ],
-    "require": {}
+    "require": {},
+    "require-dev": {
+        "ext-json": "*"
+    }
 }

@@ -2,8 +2,13 @@
 
 namespace Darmen\AzureFace;
 
+use Darmen\AzureFace\Resources\LargeFaceList;
 use GuzzleHttp\Client as HttpClient;
 
+/**
+ * @method LargeFaceList largeFaceList()
+ * @package Darmen\AzureFace
+ */
 class Client
 {
     private const HEADER_SUBSCRIPTION_KEY = 'Ocp-Apim-Subscription-Key';
