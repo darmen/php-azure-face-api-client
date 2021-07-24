@@ -23,6 +23,9 @@ class AzureFaceServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        //
+        // Publish the configuration file
+        $this->publishes([
+            __DIR__ . '/../config/azure-face.php' => config_path('azure_face.php'),
+        ]);
     }
 }
