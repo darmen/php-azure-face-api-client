@@ -16,28 +16,30 @@ class Client
 
     /**
      * Client constructor.
-     * @param Configuration $configuration Configuration to use
+     * @param string $endpoint Azure Cognitive Services endpoint
+     * @param string $subscriptionKey Azure Cognitive Services subscription key
      * @param HttpClient|null $httpClient Http client to use (defaults to GuzzleHttp)
      * @param array $httpClientOptions Guzzle client options
      */
-    public function __construct(Configuration $configuration, HttpClient $httpClient = null, array $httpClientOptions = [])
+    public function __construct(string $endpoint, string $subscriptionKey, HttpClient $httpClient = null, array $httpClientOptions = [])
     {
-        $this->initializeHttpClient($configuration, $httpClient, $httpClientOptions);
+        $this->initializeHttpClient($endpoint, $subscriptionKey, $httpClient, $httpClientOptions);
     }
 
     /**
      * Initialize an http client.
      *
-     * @param Configuration $configuration
+     * @param string $endpoint
+     * @param string $subscriptionKey
      * @param HttpClient|null $httpClient
      * @param array $httpClientOptions
      *
      * @return void
      */
-    private function initializeHttpClient(Configuration $configuration, HttpClient $httpClient = null, array $httpClientOptions = []): void
+    private function initializeHttpClient(string $endpoint, string $subscriptionKey, HttpClient $httpClient = null, array $httpClientOptions = []): void
     {
-        $httpClientOptions['base_uri'] = rtrim($configuration->getEndpoint(), '/') . '/face/v1.0/';
-        $httpClientOptions['headers'][self::HEADER_SUBSCRIPTION_KEY] = $configuration->getSubscriptionKey();
+        $httpClientOptions['base_uri'] = rtrim($endpoint, '/') . '/face/v1.0/';
+        $httpClientOptions['headers'][self::HEADER_SUBSCRIPTION_KEY] = $subscriptionKey;
 
         if ($httpClient === null) {
             $httpClient = new HttpClient($httpClientOptions);
