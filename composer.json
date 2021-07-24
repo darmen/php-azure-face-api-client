@@ -1,0 +1,13 @@
+{
+    "name": "darmen/laravel-azure-face-api-client",
+    "description": "Laravel package for working with Microsoft Azure Face API.",
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Darmen Amanbayev",
+            "email": "darmen.amanbayev@gmail.com"
+        }
+    ],
+    "require": {}
+}
