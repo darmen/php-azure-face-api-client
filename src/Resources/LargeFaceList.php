@@ -99,7 +99,7 @@ class LargeFaceList extends Resource
     /**
      * Retrieve information about a persisted face (specified by persistedFaceId and its belonging largeFaceListId).
      *
-     * @see https://docs.microsoft.com/en-us/rest/api/faceapi/large-face-list/update
+     * @see https://docs.microsoft.com/en-us/rest/api/faceapi/large-face-list/get-face
      * @param string $largeFaceListId Id referencing a particular large face list
      * @param string $persistedFaceId Id referencing a particular persistedFaceId of an existing face
      * @return array
