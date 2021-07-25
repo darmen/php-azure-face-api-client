@@ -88,7 +88,7 @@ class LargeFaceList extends Resource
      * @throws GuzzleException
      */
     public function updateFace(string $largeFaceListId, string $persistedFaceId, string $userData): void
-    {;
+    {
         $this->httpClient->patch($this->getUri() . "/$largeFaceListId/persistedfaces/$persistedFaceId", [
             'json' => [
                 'userData' => $userData,
@@ -108,7 +108,7 @@ class LargeFaceList extends Resource
      * @throws GuzzleException
      */
     public function getFace(string $largeFaceListId, string $persistedFaceId): array
-    {;
+    {
         return $this->decodeJsonResponse(
             $this->httpClient->get($this->getUri() . "/$largeFaceListId/persistedfaces/$persistedFaceId")
         );
@@ -200,6 +200,36 @@ class LargeFaceList extends Resource
         $this->httpClient->delete($this->getUri() . "/$largeFaceListId/persistedfaces/$persistedFaceId");
     }
 
+    /**
+     * Add a face to a specified large face list.
+     *
+     * @see https://docs.microsoft.com/en-us/rest/api/faceapi/large-face-list/delete-face
+     * @param string $largeFaceListId Id referencing a particular large face list
+     * @param string|null $userData User-specified data about the face for any purpose
+     * @param string|null $targetFace A face rectangle to specify the target face to be added to a person in the format of "targetFace=left,top,width,height"
+     * @param string|null $detectionModel Name of detection model
+     *
+     * @throws ApiErrorException
+     * @throws GuzzleException
+     */
+    public function addFaceFromUrl(string $largeFaceListId, string $userData = null, string $targetFace = null, string $detectionModel = null): void
+    {
+        $parameters = [];
+
+        if ($userData !== null) {
+            $parameters['userData'] = $userData;
+        }
+
+        if ($targetFace !== null) {
+            $parameters['targetFace'] = $targetFace;
+        }
+
+        if ($detectionModel !== null) {
+            $parameters['detectionModel'] = $detectionModel;
+        }
+
+        $this->httpClient->post($this->getUri() . "/$largeFaceListId/persistedfaces?" . http_build_query($parameters));
+    }
 
     /**
      * Delete a specified large face list.
