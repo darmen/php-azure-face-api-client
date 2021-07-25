@@ -1,1 +1,1 @@
-# Laravel Azure Face
+# PHP client for Microsoft Azure Face API
