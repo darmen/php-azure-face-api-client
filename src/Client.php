@@ -61,7 +61,7 @@ class Client
     private function createHandlerStack(): HandlerStack
     {
         $handlerStack = HandlerStack::create();
-        $handlerStack->after('http_errors', Middleware::wrapApiErrors());
+        $handlerStack->push(Middleware::wrapApiErrors());
 
         return $handlerStack;
     }

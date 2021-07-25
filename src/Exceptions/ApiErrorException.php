@@ -2,69 +2,45 @@
 
 namespace Darmen\AzureFace\Exceptions;
 
-use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\ResponseInterface;
 use RuntimeException;
-use Throwable;
-use function floor;
-use function sprintf;
+use function json_decode;
 
 class ApiErrorException extends RuntimeException
 {
-    /** @var RequestInterface */
-    private $request;
+    /** @var string */
+    private $errorCode;
 
-    /** @var ResponseInterface */
-    private $response;
+    /** @var string */
+    private $errorMessage;
 
-    public function __construct(string $message, RequestInterface $request, ResponseInterface $response, Throwable $previous = null)
+    public function __construct(string $errorCode, string $errorMessage, ResponseInterface $response = null)
     {
-        $code = $response ? $response->getStatusCode() : 0;
+        $message = 'Api error: ' . $errorCode . ' ' . $errorMessage;
 
-        $this->message = $message;
-        $this->request = $request;
-        $this->response = $response;
+        parent::__construct($message, $response ? $response->getStatusCode() : 0);
 
-        parent::__construct($message, $code, $previous);
+        $this->errorCode = $errorCode;
+        $this->errorMessage = $errorMessage;
     }
 
-    public static function create(RequestInterface $request, ResponseInterface $response = null, Throwable $previous = null): self
+    public static function create(ResponseInterface $response): self
     {
-        $level = (int)floor($response->getStatusCode() / 100);
+        $responseJson = json_decode($response->getBody()->getContents(), true);
+        $error = $responseJson['error'];
 
-        if ($level === 4) {
-            $label = 'Client error';
-        } elseif ($level === 5) {
-            $label = 'Server error';
-        } else {
-            $label = 'Unsuccessful request';
-        }
-
-        $message = sprintf(
-            '%s: `%s %s` resulted in a `%s %s` response',
-            $label,
-            $request->getMethod(),
-            $request->getUri(),
-            $response->getStatusCode(),
-            $response->getReasonPhrase()
-        );
-
-        return new self($message, $request, $response, $previous);
+        return new self($error['code'], $error['message'], $response);
     }
 
-    /**
-     * @return RequestInterface
-     */
-    public function getRequest(): RequestInterface
+    /** @return string */
+    public function getErrorCode(): string
     {
-        return $this->request;
+        return $this->errorCode;
     }
 
-    /**
-     * @return ResponseInterface
-     */
-    public function getResponse(): ResponseInterface
+    /** @return string */
+    public function getErrorMessage(): string
     {
-        return $this->response;
+        return $this->errorMessage;
     }
 }
