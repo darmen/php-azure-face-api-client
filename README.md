@@ -20,8 +20,8 @@ require 'vendor/autoload.php';
 
 ## Future plans
 - [ ] Face resource 
-- [ ] Face List resource
-- [ ] Large Face List resource
+- [x] Face List resource
+- [x] Large Face List resource
 - [ ] Large Person Group resource 
 - [ ] Large Person Group Person resource 
 - [ ] Person Group resource 
