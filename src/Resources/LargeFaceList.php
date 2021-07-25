@@ -119,6 +119,22 @@ class LargeFaceList extends Resource
     }
 
     /**
+     * Delete a face from a large face list by specified largeFaceListId and persistedFaceId.
+     *
+     * @see https://docs.microsoft.com/en-us/rest/api/faceapi/large-face-list/delete-face
+     * @param string $largeFaceListId Id referencing a particular large face list
+     * @param string $persistedFaceId Id referencing a particular persistedFaceId of an existing face
+     *
+     * @throws ApiErrorException
+     * @throws GuzzleException
+     */
+    public function deleteFace(string $largeFaceListId, string $persistedFaceId): void
+    {
+        $this->httpClient->delete("largeFaceLists/$largeFaceListId/persistedfaces/$persistedFaceId");
+    }
+
+
+    /**
      * Delete a specified large face list.
      *
      * @see https://docs.microsoft.com/en-us/rest/api/faceapi/large-face-list/train
