@@ -21,14 +21,12 @@ require 'vendor/autoload.php';
 ## Future plans
 - [ ] Face resource 
 - [ ] Face List resource
-- [x] Large Face List resource
+- [ ] Large Face List resource
 - [ ] Large Person Group resource 
 - [ ] Large Person Group Person resource 
 - [ ] Person Group resource 
 - [ ] Person Group Person resource 
 - [ ] Snapshot resource 
-- [ ] Provide documentation with examples
-- [ ] Write tests
 
 ## Documentation
 
