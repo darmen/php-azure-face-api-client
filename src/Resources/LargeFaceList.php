@@ -8,7 +8,6 @@ use GuzzleHttp\Exception\GuzzleException;
  * LargeFaceList resource.
  *
  * @see https://docs.microsoft.com/en-us/rest/api/faceapi/large-face-list
- * @package Darmen\AzureFace\Resources
  */
 class LargeFaceList extends Resource
 {

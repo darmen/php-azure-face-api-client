@@ -9,7 +9,6 @@ use GuzzleHttp\HandlerStack;
 
 /**
  * @method LargeFaceList largeFaceList()
- * @package Darmen\AzureFace
  */
 class Client
 {
@@ -20,6 +19,7 @@ class Client
 
     /**
      * Client constructor.
+     *
      * @param string $endpoint Azure Cognitive Services endpoint
      * @param string $subscriptionKey Azure Cognitive Services subscription key
      * @param HttpClient|null $httpClient Http client to use (defaults to GuzzleHttp)
