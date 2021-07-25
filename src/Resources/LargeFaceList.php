@@ -96,6 +96,23 @@ class LargeFaceList extends Resource
         ]);
     }
 
+    /**
+     * Retrieve information about a persisted face (specified by persistedFaceId and its belonging largeFaceListId).
+     *
+     * @see https://docs.microsoft.com/en-us/rest/api/faceapi/large-face-list/update
+     * @param string $largeFaceListId Id referencing a particular large face list
+     * @param string $persistedFaceId Id referencing a particular persistedFaceId of an existing face
+     * @return array
+     *
+     * @throws ApiErrorException
+     * @throws GuzzleException
+     */
+    public function getFace(string $largeFaceListId, string $persistedFaceId): array
+    {;
+        return $this->decodeJsonResponse(
+            $this->httpClient->get($this->getUri() . "/$largeFaceListId/persistedfaces/$persistedFaceId")
+        );
+    }
 
     /**
      * List large face lists’ information of largeFaceListId, name, userData and recognitionModel.
