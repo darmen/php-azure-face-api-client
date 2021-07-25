@@ -163,4 +163,23 @@ class LargeFaceList extends Resource
             $this->httpClient->get($this->getUri() . "/$largeFaceListId/training")
         );
     }
+
+    /**
+     * Retrieve a large face list’s largeFaceListId, name, userData and recognitionModel.
+     *
+     * @see https://docs.microsoft.com/en-us/rest/api/faceapi/large-face-list/get
+     * @param string $largeFaceListId Id referencing a particular large face list
+     * @param bool $returnRecognitionModel Return 'recognitionModel' or not. Default is false.
+     * @return array
+     *
+     * @throws ApiErrorException
+     * @throws GuzzleException
+     */
+    public function get(string $largeFaceListId, bool $returnRecognitionModel = false): array
+    {
+        return $this->decodeJsonResponse(
+            $this->httpClient->get($this->getUri() . "/$largeFaceListId?returnRecognitionModel=$returnRecognitionModel")
+        );
+    }
+
 }
