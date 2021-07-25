@@ -3,6 +3,7 @@
 namespace Darmen\AzureFace\Resources;
 
 use GuzzleHttp\Exception\GuzzleException;
+use function json_decode;
 
 /**
  * LargeFaceList resource.
@@ -24,7 +25,7 @@ class LargeFaceList extends Resource
      *
      * @throws GuzzleException
      */
-    public function create(string $largeFaceListId, string $name, string $recognitionModel = null, string $userData = null)
+    public function create(string $largeFaceListId, string $name, string $recognitionModel = null, string $userData = null): void
     {
         $body = [
             'name' => $name,
@@ -77,12 +78,25 @@ class LargeFaceList extends Resource
      * Delete a specified large face list.
      *
      * @see https://docs.microsoft.com/en-us/rest/api/faceapi/large-face-list/delete
-     * @param string $largeFaceListId
+     * @param string $largeFaceListId Id referencing a particular large face list
      *
      * @throws GuzzleException
      */
-    public function delete(string $largeFaceListId)
+    public function delete(string $largeFaceListId): void
     {
         $this->httpClient->delete("largeFaceLists/$largeFaceListId");
+    }
+
+    /**
+     * Delete a specified large face list.
+     *
+     * @see https://docs.microsoft.com/en-us/rest/api/faceapi/large-face-list/train
+     * @param string $largeFaceListId Id referencing a particular large face list
+     *
+     * @throws GuzzleException
+     */
+    public function train(string $largeFaceListId): void
+    {
+        $this->httpClient->post("largeFaceLists/$largeFaceListId/train");
     }
 }
