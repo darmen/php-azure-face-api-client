@@ -77,6 +77,27 @@ class LargeFaceList extends Resource
     }
 
     /**
+     * Update a persisted face's userData field.
+     *
+     * @see https://docs.microsoft.com/en-us/rest/api/faceapi/large-face-list/update
+     * @param string $largeFaceListId Id referencing a particular large face list
+     * @param string $persistedFaceId Id referencing a particular persistedFaceId of an existing face
+     * @param string $userData User-provided data attached to the face
+     *
+     * @throws ApiErrorException
+     * @throws GuzzleException
+     */
+    public function updateFace(string $largeFaceListId, string $persistedFaceId, string $userData): void
+    {;
+        $this->httpClient->patch($this->getUri() . "/$largeFaceListId/persistedfaces/$persistedFaceId", [
+            'json' => [
+                'userData' => $userData,
+            ]
+        ]);
+    }
+
+
+    /**
      * List large face lists’ information of largeFaceListId, name, userData and recognitionModel.
      *
      * @see https://docs.microsoft.com/en-us/rest/api/faceapi/large-face-list/list
