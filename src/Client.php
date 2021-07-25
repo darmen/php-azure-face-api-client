@@ -3,12 +3,14 @@
 namespace Darmen\AzureFace;
 
 use Darmen\AzureFace\Http\Middleware;
+use Darmen\AzureFace\Resources\FaceList;
 use Darmen\AzureFace\Resources\LargeFaceList;
 use GuzzleHttp\Client as HttpClient;
 use GuzzleHttp\HandlerStack;
 
 /**
  * @method LargeFaceList largeFaceList()
+ * @method FaceList faceList()
  */
 class Client
 {

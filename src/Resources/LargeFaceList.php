@@ -10,70 +10,13 @@ use GuzzleHttp\Exception\GuzzleException;
  *
  * @see https://docs.microsoft.com/en-us/rest/api/faceapi/large-face-list
  */
-class LargeFaceList extends Resource
+class LargeFaceList extends FaceList
 {
     protected const URI = 'largefacelists';
-
-    /**
-     * Create an empty large face list.
-     *
-     * @see https://docs.microsoft.com/en-us/rest/api/faceapi/large-face-list/create
-     * @param string $largeFaceListId Id referencing a particular large face list
-     * @param string $name User defined name
-     * @param string|null $recognitionModel Name of recognition model
-     * @param string|null $userData User specified data
-     *
-     * @throws ApiErrorException
-     * @throws GuzzleException
-     */
-    public function create(string $largeFaceListId, string $name, string $recognitionModel = null, string $userData = null): void
-    {
-        $body = [
-            'name' => $name,
-        ];
-
-        if ($recognitionModel !== null) {
-            $body['recognitionModel'] = $recognitionModel;
-        }
-
-        if ($userData !== null) {
-            $body['userData'] = $userData;
-        }
-
-        $this->httpClient->put($this->getUri() . "/$largeFaceListId", [
-            'json' => $body
-        ]);
-    }
 
     protected function getUri(): string
     {
         return self::URI;
-    }
-
-    /**
-     * Update information of a large face list.
-     *
-     * @see https://docs.microsoft.com/en-us/rest/api/faceapi/large-face-list/update
-     * @param string $largeFaceListId Id referencing a particular large face list
-     * @param string $name User defined name
-     * @param string|null $userData User specified data
-     *
-     * @throws ApiErrorException
-     * @throws GuzzleException
-     */
-    public function update(string $largeFaceListId, string $name, string $userData = null): void
-    {
-        $body = [
-            'name' => $name,
-        ];
-
-        if ($userData !== null) {
-            $body['userData'] = $userData;
-        }
-
-        $this->httpClient->patch($this->getUri() . "/$largeFaceListId", [
-            'json' => $body
-        ]);
     }
 
     /**
@@ -115,34 +58,6 @@ class LargeFaceList extends Resource
     }
 
     /**
-     * List large face lists’ information of largeFaceListId, name, userData and recognitionModel.
-     *
-     * @see https://docs.microsoft.com/en-us/rest/api/faceapi/large-face-list/list
-     * @param int|null $start List large face lists from the least largeFaceListId greater than the "start". Default is null
-     * @param int|null $top The number of large face lists to list, ranging in [1, 1000]. Default is 1000.
-     * @param bool|null $returnRecognitionModel Return 'recognitionModel' or not. Default is false.
-     * @return array
-     *
-     * @throws ApiErrorException
-     * @throws GuzzleException
-     */
-    public function all(int $start = null, int $top = 1000, bool $returnRecognitionModel = false): array
-    {
-        $parameters = [
-            'top' => $top,
-            'returnRecognitionModel' => $returnRecognitionModel
-        ];
-
-        if ($start !== null) {
-            $parameters['start'] = $start;
-        }
-
-        return $this->decodeJsonResponse(
-            $this->httpClient->get($this->getUri() . "?" . http_build_query($parameters))
-        );
-    }
-
-    /**
      * List all faces in a large face list, and retrieve face information (including userData and persistedFaceIds of registered faces of the face).
      *
      * @see https://docs.microsoft.com/en-us/rest/api/faceapi/large-face-list/list-faces
@@ -168,109 +83,6 @@ class LargeFaceList extends Resource
         return $this->decodeJsonResponse(
             $this->httpClient->get($this->getUri() . "/$largeFaceListId/persistedfaces?" . http_build_query($parameters))
         );
-    }
-
-
-    /**
-     * Delete a specified large face list.
-     *
-     * @see https://docs.microsoft.com/en-us/rest/api/faceapi/large-face-list/delete
-     * @param string $largeFaceListId Id referencing a particular large face list
-     *
-     * @throws ApiErrorException
-     * @throws GuzzleException
-     */
-    public function delete(string $largeFaceListId): void
-    {
-        $this->httpClient->delete($this->getUri() . "/$largeFaceListId");
-    }
-
-    /**
-     * Delete a face from a large face list by specified largeFaceListId and persistedFaceId.
-     *
-     * @see https://docs.microsoft.com/en-us/rest/api/faceapi/large-face-list/delete-face
-     * @param string $largeFaceListId Id referencing a particular large face list
-     * @param string $persistedFaceId Id referencing a particular persistedFaceId of an existing face
-     *
-     * @throws ApiErrorException
-     * @throws GuzzleException
-     */
-    public function deleteFace(string $largeFaceListId, string $persistedFaceId): void
-    {
-        $this->httpClient->delete($this->getUri() . "/$largeFaceListId/persistedfaces/$persistedFaceId");
-    }
-
-    /**
-     * Add a face from URL to a specified large face list.
-     *
-     * @see https://docs.microsoft.com/en-us/rest/api/faceapi/large-face-list/delete-face
-     * @param string $largeFaceListId Id referencing a particular large face list
-     * @param string $url URL to an image
-     * @param string|null $userData User-specified data about the face for any purpose
-     * @param string|null $targetFace A face rectangle to specify the target face to be added to a person in the format of "targetFace=left,top,width,height"
-     * @param string|null $detectionModel Name of detection model
-     *
-     * @throws ApiErrorException
-     * @throws GuzzleException
-     */
-    public function addFaceFromUrl(string $largeFaceListId, string $url, string $userData = null, string $targetFace = null, string $detectionModel = null): void
-    {
-        $parameters = [];
-
-        if ($userData !== null) {
-            $parameters['userData'] = $userData;
-        }
-
-        if ($targetFace !== null) {
-            $parameters['targetFace'] = $targetFace;
-        }
-
-        if ($detectionModel !== null) {
-            $parameters['detectionModel'] = $detectionModel;
-        }
-
-        $this->httpClient->post($this->getUri() . "/$largeFaceListId/persistedfaces?" . http_build_query($parameters), [
-            'json' => [
-                'url' => $url
-            ]
-        ]);
-    }
-
-    /**
-     * Add a face from stream to a specified large face list.
-     *
-     * @see https://docs.microsoft.com/en-us/rest/api/faceapi/large-face-list/delete-face
-     * @param string $largeFaceListId Id referencing a particular large face list
-     * @param resource $image A resource containing the image
-     * @param string|null $userData User-specified data about the face for any purpose
-     * @param string|null $targetFace A face rectangle to specify the target face to be added to a person in the format of "targetFace=left,top,width,height"
-     * @param string|null $detectionModel Name of detection model
-     *
-     * @throws GuzzleException
-     */
-    public function addFaceFromStream(string $largeFaceListId, $image, string $userData = null, string $targetFace = null, string $detectionModel = null): void
-    {
-        $parameters = [];
-
-        if ($userData !== null) {
-            $parameters['userData'] = $userData;
-        }
-
-        if ($targetFace !== null) {
-            $parameters['targetFace'] = $targetFace;
-        }
-
-        if ($detectionModel !== null) {
-            $parameters['detectionModel'] = $detectionModel;
-        }
-
-        $this->httpClient->post($this->getUri() . "/$largeFaceListId/persistedfaces?" . http_build_query($parameters), [
-            'headers' => [
-                'Content-Type' => 'application/octet-stream'
-            ],
-
-            'body' => stream_get_contents($image),
-        ]);
     }
 
     /**
@@ -302,23 +114,4 @@ class LargeFaceList extends Resource
             $this->httpClient->get($this->getUri() . "/$largeFaceListId/training")
         );
     }
-
-    /**
-     * Retrieve a large face list’s largeFaceListId, name, userData and recognitionModel.
-     *
-     * @see https://docs.microsoft.com/en-us/rest/api/faceapi/large-face-list/get
-     * @param string $largeFaceListId Id referencing a particular large face list
-     * @param bool $returnRecognitionModel Return 'recognitionModel' or not. Default is false.
-     * @return array
-     *
-     * @throws ApiErrorException
-     * @throws GuzzleException
-     */
-    public function get(string $largeFaceListId, bool $returnRecognitionModel = false): array
-    {
-        return $this->decodeJsonResponse(
-            $this->httpClient->get($this->getUri() . "/$largeFaceListId?returnRecognitionModel=$returnRecognitionModel")
-        );
-    }
-
 }
