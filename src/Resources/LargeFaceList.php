@@ -201,10 +201,11 @@ class LargeFaceList extends Resource
     }
 
     /**
-     * Add a face to a specified large face list.
+     * Add a face from URL to a specified large face list.
      *
      * @see https://docs.microsoft.com/en-us/rest/api/faceapi/large-face-list/delete-face
      * @param string $largeFaceListId Id referencing a particular large face list
+     * @param string $url URL to an image
      * @param string|null $userData User-specified data about the face for any purpose
      * @param string|null $targetFace A face rectangle to specify the target face to be added to a person in the format of "targetFace=left,top,width,height"
      * @param string|null $detectionModel Name of detection model
@@ -212,7 +213,7 @@ class LargeFaceList extends Resource
      * @throws ApiErrorException
      * @throws GuzzleException
      */
-    public function addFaceFromUrl(string $largeFaceListId, string $userData = null, string $targetFace = null, string $detectionModel = null): void
+    public function addFaceFromUrl(string $largeFaceListId, string $url, string $userData = null, string $targetFace = null, string $detectionModel = null): void
     {
         $parameters = [];
 
@@ -228,7 +229,11 @@ class LargeFaceList extends Resource
             $parameters['detectionModel'] = $detectionModel;
         }
 
-        $this->httpClient->post($this->getUri() . "/$largeFaceListId/persistedfaces?" . http_build_query($parameters));
+        $this->httpClient->post($this->getUri() . "/$largeFaceListId/persistedfaces?" . http_build_query($parameters), [
+            'json' => [
+                'url' => $url
+            ]
+        ]);
     }
 
     /**
