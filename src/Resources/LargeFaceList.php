@@ -2,8 +2,8 @@
 
 namespace Darmen\AzureFace\Resources;
 
+use Darmen\AzureFace\Exceptions\ApiErrorException;
 use GuzzleHttp\Exception\GuzzleException;
-use function json_decode;
 
 /**
  * LargeFaceList resource.
@@ -23,6 +23,7 @@ class LargeFaceList extends Resource
      * @param string|null $recognitionModel Name of recognition model
      * @param string|null $userData User specified data
      *
+     * @throws ApiErrorException
      * @throws GuzzleException
      */
     public function create(string $largeFaceListId, string $name, string $recognitionModel = null, string $userData = null): void
@@ -58,6 +59,7 @@ class LargeFaceList extends Resource
      * @param bool|null $returnRecognitionModel Return 'recognitionModel' or not. Default is false.
      * @return array
      *
+     * @throws ApiErrorException
      * @throws GuzzleException
      */
     public function all(int $start = null, int $top = 1000, bool $returnRecognitionModel = false): array
@@ -71,7 +73,9 @@ class LargeFaceList extends Resource
             $parameters['start'] = $start;
         }
 
-        return json_decode($this->httpClient->get("largeFaceLists?" . http_build_query($parameters))->getBody()->getContents(), true);
+        return $this->decodeJsonResponse(
+            $this->httpClient->get("largeFaceLists?" . http_build_query($parameters))
+        );
     }
 
     /**
@@ -80,6 +84,7 @@ class LargeFaceList extends Resource
      * @see https://docs.microsoft.com/en-us/rest/api/faceapi/large-face-list/delete
      * @param string $largeFaceListId Id referencing a particular large face list
      *
+     * @throws ApiErrorException
      * @throws GuzzleException
      */
     public function delete(string $largeFaceListId): void
@@ -93,10 +98,27 @@ class LargeFaceList extends Resource
      * @see https://docs.microsoft.com/en-us/rest/api/faceapi/large-face-list/train
      * @param string $largeFaceListId Id referencing a particular large face list
      *
+     * @throws ApiErrorException
      * @throws GuzzleException
      */
     public function train(string $largeFaceListId): void
     {
         $this->httpClient->post("largeFaceLists/$largeFaceListId/train");
+    }
+
+    /**
+     * Retrieve the training status of a large face list (completed or ongoing).
+     *
+     * @see https://docs.microsoft.com/en-us/rest/api/faceapi/large-face-list/get-training-status
+     * @param string $largeFaceListId Id referencing a particular large face list
+     *
+     * @throws ApiErrorException
+     * @throws GuzzleException
+     */
+    public function getTrainingStatus(string $largeFaceListId): array
+    {
+        return $this->decodeJsonResponse(
+            $this->httpClient->get("largeFaceLists/$largeFaceListId/training")
+        );
     }
 }
