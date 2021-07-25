@@ -237,6 +237,43 @@ class LargeFaceList extends Resource
     }
 
     /**
+     * Add a face from stream to a specified large face list.
+     *
+     * @see https://docs.microsoft.com/en-us/rest/api/faceapi/large-face-list/delete-face
+     * @param string $largeFaceListId Id referencing a particular large face list
+     * @param resource $image A resource containing the image
+     * @param string|null $userData User-specified data about the face for any purpose
+     * @param string|null $targetFace A face rectangle to specify the target face to be added to a person in the format of "targetFace=left,top,width,height"
+     * @param string|null $detectionModel Name of detection model
+     *
+     * @throws GuzzleException
+     */
+    public function addFaceFromStream(string $largeFaceListId, $image, string $userData = null, string $targetFace = null, string $detectionModel = null): void
+    {
+        $parameters = [];
+
+        if ($userData !== null) {
+            $parameters['userData'] = $userData;
+        }
+
+        if ($targetFace !== null) {
+            $parameters['targetFace'] = $targetFace;
+        }
+
+        if ($detectionModel !== null) {
+            $parameters['detectionModel'] = $detectionModel;
+        }
+
+        $this->httpClient->post($this->getUri() . "/$largeFaceListId/persistedfaces?" . http_build_query($parameters), [
+            'headers' => [
+                'Content-Type' => 'application/octet-stream'
+            ],
+
+            'body' => stream_get_contents($image),
+        ]);
+    }
+
+    /**
      * Delete a specified large face list.
      *
      * @see https://docs.microsoft.com/en-us/rest/api/faceapi/large-face-list/train
