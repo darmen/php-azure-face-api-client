@@ -45,6 +45,11 @@ class LargeFaceList extends Resource
         ]);
     }
 
+    protected function getUri(): string
+    {
+        return self::URI;
+    }
+
     /**
      * Update information of a large face list.
      *
@@ -71,11 +76,6 @@ class LargeFaceList extends Resource
         ]);
     }
 
-    protected function getUri(): string
-    {
-        return self::URI;
-    }
-
     /**
      * List large face lists’ information of largeFaceListId, name, userData and recognitionModel.
      *
@@ -100,7 +100,7 @@ class LargeFaceList extends Resource
         }
 
         return $this->decodeJsonResponse(
-            $this->httpClient->get("largeFaceLists?" . http_build_query($parameters))
+            $this->httpClient->get($this->getUri() . "?" . http_build_query($parameters))
         );
     }
 
@@ -115,7 +115,7 @@ class LargeFaceList extends Resource
      */
     public function delete(string $largeFaceListId): void
     {
-        $this->httpClient->delete("largeFaceLists/$largeFaceListId");
+        $this->httpClient->delete($this->getUri() . "/$largeFaceListId");
     }
 
     /**
@@ -130,7 +130,7 @@ class LargeFaceList extends Resource
      */
     public function deleteFace(string $largeFaceListId, string $persistedFaceId): void
     {
-        $this->httpClient->delete("largeFaceLists/$largeFaceListId/persistedfaces/$persistedFaceId");
+        $this->httpClient->delete($this->getUri() . "/$largeFaceListId/persistedfaces/$persistedFaceId");
     }
 
 
@@ -145,7 +145,7 @@ class LargeFaceList extends Resource
      */
     public function train(string $largeFaceListId): void
     {
-        $this->httpClient->post("largeFaceLists/$largeFaceListId/train");
+        $this->httpClient->post($this->getUri() . "/$largeFaceListId/train");
     }
 
     /**
@@ -160,7 +160,7 @@ class LargeFaceList extends Resource
     public function getTrainingStatus(string $largeFaceListId): array
     {
         return $this->decodeJsonResponse(
-            $this->httpClient->get("largeFaceLists/$largeFaceListId/training")
+            $this->httpClient->get($this->getUri() . "/$largeFaceListId/training")
         );
     }
 }
