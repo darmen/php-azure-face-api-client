@@ -2,8 +2,10 @@
 
 namespace Darmen\AzureFace;
 
+use Darmen\AzureFace\Http\Middleware;
 use Darmen\AzureFace\Resources\LargeFaceList;
 use GuzzleHttp\Client as HttpClient;
+use GuzzleHttp\HandlerStack;
 
 /**
  * @method LargeFaceList largeFaceList()
@@ -15,9 +17,6 @@ class Client
 
     /** @var HttpClient|null */
     private $httpClient;
-
-    /** @var array */
-    private $httpClientOptions;
 
     /**
      * Client constructor.
@@ -45,13 +44,26 @@ class Client
     {
         $httpClientOptions['base_uri'] = rtrim($endpoint, '/') . '/face/v1.0/';
         $httpClientOptions['headers'][self::HEADER_SUBSCRIPTION_KEY] = $subscriptionKey;
+        $httpClientOptions['handler'] = $this->createHandlerStack();
 
         if ($httpClient === null) {
             $httpClient = new HttpClient($httpClientOptions);
         }
 
-        $this->httpClientOptions = $httpClientOptions;
         $this->httpClient = $httpClient;
+    }
+
+    /**
+     * Create custom handler stack with 'wrapApiErrors' middleware.
+     *
+     * @return HandlerStack
+     */
+    private function createHandlerStack(): HandlerStack
+    {
+        $handlerStack = HandlerStack::create();
+        $handlerStack->after('http_errors', Middleware::wrapApiErrors());
+
+        return $handlerStack;
     }
 
     public function __call($name, $arguments)
