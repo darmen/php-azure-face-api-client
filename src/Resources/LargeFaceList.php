@@ -45,6 +45,32 @@ class LargeFaceList extends Resource
         ]);
     }
 
+    /**
+     * Update information of a large face list.
+     *
+     * @see https://docs.microsoft.com/en-us/rest/api/faceapi/large-face-list/update
+     * @param string $largeFaceListId Id referencing a particular large face list
+     * @param string $name User defined name
+     * @param string|null $userData User specified data
+     *
+     * @throws ApiErrorException
+     * @throws GuzzleException
+     */
+    public function update(string $largeFaceListId, string $name, string $userData = null): void
+    {
+        $body = [
+            'name' => $name,
+        ];
+
+        if ($userData !== null) {
+            $body['userData'] = $userData;
+        }
+
+        $this->httpClient->patch($this->getUri() . "/$largeFaceListId", [
+            'json' => $body
+        ]);
+    }
+
     protected function getUri(): string
     {
         return self::URI;
