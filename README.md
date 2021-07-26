@@ -28,9 +28,32 @@ require 'vendor/autoload.php';
 - [ ] Person Group Person resource 
 - [ ] Snapshot resource 
 
-## Documentation
+## Usage
 
-Is yet to come :)
+All following examples assume this step.
+
+```php
+use Darmen\AzureFace\Client;
+
+$client = new Client('<endpoint>', '<subscription key>');
+```
+
+### Working with resources
+```php
+$client->facelist()->create('test-id', 'test-name');
+$client->largefacelist()->create('test-id-large', 'test-name-large');
+
+$client->facelist()->get('test-id');
+$client->largefacelist()->get('test-id-large');
+
+$client->facelist()->delete('test-id');
+$client->largefacelist()->delete('test-id-large');
+
+// ...
+
+```
+
+Since the library wraps [Face API REST interface](https://docs.microsoft.com/en-us/rest/api/cognitiveservices/), feel free toe read the sources in `src/Resources` directory to find out more methods.
 
 ## Contribution
 
