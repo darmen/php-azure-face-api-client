@@ -175,7 +175,7 @@ class FaceList extends Resource
      * List face lists’ information of faceListId, name, userData and recognitionModel.
      *
      * @see https://docs.microsoft.com/en-us/rest/api/faceapi/face-list/list
-     * @param int|null $start List face lists from the least faceListId greater than the "start". Default is null
+     * @param string|null $start List face lists from the least faceListId greater than the "start". Default is null
      * @param int|null $top The number of face lists to list, ranging in [1, 1000]. Default is 1000.
      * @param bool|null $returnRecognitionModel Return 'recognitionModel' or not. Default is false.
      * @return array
@@ -183,7 +183,7 @@ class FaceList extends Resource
      * @throws ApiErrorException
      * @throws GuzzleException
      */
-    public function all(int $start = null, int $top = 1000, bool $returnRecognitionModel = false): array
+    public function all(string $start = null, int $top = 1000, bool $returnRecognitionModel = false): array
     {
         $parameters = [
             'top' => $top,
