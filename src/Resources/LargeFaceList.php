@@ -63,14 +63,14 @@ class LargeFaceList extends FaceList
      * @see https://docs.microsoft.com/en-us/rest/api/faceapi/large-face-list/list-faces
      *
      * @param string $largeFaceListId Id referencing a particular large face list
-     * @param int|null $start Starting face id to return (used to list a range of faces
+     * @param string|null $start Starting face id to return (used to list a range of faces
      * @param int|null $top Number of faces to return starting with the face id indicated by the 'start' parameter
      * @return array
      *
      * @throws ApiErrorException
      * @throws GuzzleException
      */
-    public function listFaces(string $largeFaceListId, int $start = null, int $top = 1000): array
+    public function listFaces(string $largeFaceListId, string $start = null, int $top = 1000): array
     {
         $parameters = [
             'top' => $top,
