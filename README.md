@@ -2,6 +2,9 @@
 
 A PHP library that utilizes [Azure Face REST API](https://docs.microsoft.com/en-us/rest/api/face/).
 
+[![Latest Stable Version](http://poser.pugx.org/darmen/php-azure-face-api-client/v/stable)](https://packagist.org/packages/darmen/php-azure-face-api-client)
+[![Total Downloads](http://poser.pugx.org/darmen/php-azure-face-api-client/downloads)](https://packagist.org/packages/darmen/php-azure-face-api-client)
+
 ## Requirements
 
 * PHP >= 7.1
