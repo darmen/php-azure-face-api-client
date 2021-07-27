@@ -2,6 +2,7 @@
 
 A PHP library that utilizes [Azure Face REST API](https://docs.microsoft.com/en-us/rest/api/face/).
 
+[![Build status](https://github.com/darmen/php-azure-face-api-client/workflows/Tests/badge.svg)](https://github.com/darmen/php-azure-face-api-client/actions)
 [![Latest Stable Version](http://poser.pugx.org/darmen/php-azure-face-api-client/v/stable)](https://packagist.org/packages/darmen/php-azure-face-api-client)
 [![Total Downloads](http://poser.pugx.org/darmen/php-azure-face-api-client/downloads)](https://packagist.org/packages/darmen/php-azure-face-api-client)
 
