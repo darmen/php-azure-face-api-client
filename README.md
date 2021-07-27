@@ -53,7 +53,7 @@ $client->largefacelist()->delete('test-id-large');
 
 ```
 
-Since the library wraps [Face API REST interface](https://docs.microsoft.com/en-us/rest/api/cognitiveservices/), feel free toe read the sources in `src/Resources` directory to find out more methods.
+Since the library wraps [Face API REST interface](https://docs.microsoft.com/en-us/rest/api/face/), feel free toe read the sources in `src/Resources` directory to find out more methods.
 
 ## Contribution
 
