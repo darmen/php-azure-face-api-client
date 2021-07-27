@@ -1,6 +1,6 @@
 # Microsoft Azure Face API PHP client
 
-A PHP library that utilizes [Azure Cognitive Services REST API](https://docs.microsoft.com/en-us/rest/api/cognitiveservices/).
+A PHP library that utilizes [Azure Face REST API](https://docs.microsoft.com/en-us/rest/api/face/).
 
 ## Requirements
 
