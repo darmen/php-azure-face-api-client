@@ -8,7 +8,7 @@ A PHP library that utilizes [Azure Face REST API](https://docs.microsoft.com/en-
 
 ## Requirements
 
-* PHP >= 7.1
+* PHP >= 7.4
 
 ## Installation
 
