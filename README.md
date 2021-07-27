@@ -44,14 +44,14 @@ $client = new Client('<endpoint>', '<subscription key>');
 
 ### Working with resources
 ```php
-$client->facelist()->create('test-id', 'test-name');
-$client->largefacelist()->create('test-id-large', 'test-name-large');
+$client->faceList()->create('test-id', 'test-name');
+$client->largeFaceList()->create('test-id-large', 'test-name-large');
 
-$client->facelist()->get('test-id');
-$client->largefacelist()->get('test-id-large');
+$client->faceList()->get('test-id');
+$client->largeFaceList()->get('test-id-large');
 
-$client->facelist()->delete('test-id');
-$client->largefacelist()->delete('test-id-large');
+$client->faceList()->delete('test-id');
+$client->largeFaceList()->delete('test-id-large');
 
 // ...
 
