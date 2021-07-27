@@ -4,6 +4,7 @@ namespace Darmen\AzureFace\Tests;
 
 use Darmen\AzureFace\Client;
 use Darmen\AzureFace\Resources\FaceList;
+use Darmen\AzureFace\Resources\LargeFaceList;
 use PHPUnit\Framework\TestCase;
 
 class ClientTest extends TestCase
@@ -16,7 +17,7 @@ class ClientTest extends TestCase
     public function testFacelistReturnsFaceList(): void
     {
         $this->assertEquals(
-            get_class($this->sut->facelist()),
+            get_class($this->sut->faceList()),
             FaceList::class
         );
     }
@@ -24,8 +25,8 @@ class ClientTest extends TestCase
     public function testLargefacelistReturnsLargeFaceList(): void
     {
         $this->assertEquals(
-            get_class($this->sut->facelist()),
-            FaceList::class
+            get_class($this->sut->largeFaceList()),
+            LargeFaceList::class
         );
     }
 }
