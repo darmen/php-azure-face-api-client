@@ -103,6 +103,7 @@ class Face extends Resource
     /**
      * Given query face's faceId, search the similar-looking faces from a face list.
      *
+     * @link https://docs.microsoft.com/en-us/rest/api/faceapi/face/find-similar
      * @param string $faceId
      * @param string $faceListId
      * @param int $maxNumOfCandidatesReturned
@@ -127,6 +128,7 @@ class Face extends Resource
     /**
      * Given query face's faceId, search the similar-looking faces from a large face list.
      *
+     * @link https://docs.microsoft.com/en-us/rest/api/faceapi/face/find-similar
      * @param string $faceId
      * @param string $largeFaceListId
      * @param int $maxNumOfCandidatesReturned
@@ -151,6 +153,7 @@ class Face extends Resource
     /**
      * Given query face's faceId, search the similar-looking faces from a faceId array.
      *
+     * @link https://docs.microsoft.com/en-us/rest/api/faceapi/face/find-similar
      * @param string $faceId
      * @param array $faceIds
      * @param int $maxNumOfCandidatesReturned
