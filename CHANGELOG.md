@@ -1,10 +1,13 @@
 # Changelog
 
-## [Unreleased]
+## [1.1.0] - 2021-07-29
 
 ### Added
-
-* Add `Face` resource
+* `Face` resource with methods:
+  * Detect with stream 
+  * Detect with URL
+  * Find similar
+  * Group
 
 ## [1.0.1] - 2021-07-27
 

@@ -178,6 +178,7 @@ class Face extends Resource
     /**
      * Divide candidate faces into groups based on face similarity.
      *
+     * @link https://docs.microsoft.com/en-us/rest/api/faceapi/face/group
      * @param array $faceIds Array of candidate faceId created by Face - Detect
      * @return array
      * @throws \GuzzleHttp\Exception\GuzzleException

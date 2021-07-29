@@ -22,8 +22,17 @@ Use the autoloader in your projects:
 require 'vendor/autoload.php';
 ```
 
-## Future plans
-- [ ] Face resource 
+## Next steps
+### Face resource 
+  - [x] Detect with stream
+  - [x] Detect with URL
+  - [x] Find similar
+  - [x] Group
+  - [ ] Identify
+  - [ ] Verify Face to Face
+  - [ ] Verify Face to Person
+    
+### Other resources
 - [x] Face List resource
 - [x] Large Face List resource
 - [ ] Large Person Group resource 
