@@ -100,4 +100,75 @@ class Face extends Resource
         );
     }
 
+    /**
+     * Given query face's faceId, search the similar-looking faces from a face list.
+     *
+     * @param string $faceId
+     * @param string $faceListId
+     * @param int $maxNumOfCandidatesReturned
+     * @param string $mode
+     * @return array
+     * @throws \GuzzleHttp\Exception\GuzzleException
+     */
+    public function findSimilarInFaceList(string $faceId, string $faceListId, int $maxNumOfCandidatesReturned = 20, string $mode = 'matchPerson'): array
+    {
+        return $this->decodeJsonResponse(
+            $this->httpClient->post('findsimilars', [
+                'json' => [
+                    'faceId' => $faceId,
+                    'faceListId' => $faceListId,
+                    'maxNumOfCandidatesReturned' => $maxNumOfCandidatesReturned,
+                    'mode' => $mode
+                ]
+            ])
+        );
+    }
+
+    /**
+     * Given query face's faceId, search the similar-looking faces from a large face list.
+     *
+     * @param string $faceId
+     * @param string $largeFaceListId
+     * @param int $maxNumOfCandidatesReturned
+     * @param string $mode
+     * @return array
+     * @throws \GuzzleHttp\Exception\GuzzleException
+     */
+    public function findSimilarInLargeFaceList(string $faceId, string $largeFaceListId, int $maxNumOfCandidatesReturned = 20, string $mode = 'matchPerson'): array
+    {
+        return $this->decodeJsonResponse(
+            $this->httpClient->post('findsimilars', [
+                'json' => [
+                    'faceId' => $faceId,
+                    'largeFaceListId' => $largeFaceListId,
+                    'maxNumOfCandidatesReturned' => $maxNumOfCandidatesReturned,
+                    'mode' => $mode
+                ]
+            ])
+        );
+    }
+
+    /**
+     * Given query face's faceId, search the similar-looking faces from a faceId array.
+     *
+     * @param string $faceId
+     * @param array $faceIds
+     * @param int $maxNumOfCandidatesReturned
+     * @param string $mode
+     * @return array
+     * @throws \GuzzleHttp\Exception\GuzzleException
+     */
+    public function findSimilarInFaceIdsArray(string $faceId, array $faceIds, int $maxNumOfCandidatesReturned = 20, string $mode = 'matchPerson'): array
+    {
+        return $this->decodeJsonResponse(
+            $this->httpClient->post('findsimilars', [
+                'json' => [
+                    'faceId' => $faceId,
+                    'faceIds' => $faceIds,
+                    'maxNumOfCandidatesReturned' => $maxNumOfCandidatesReturned,
+                    'mode' => $mode
+                ]
+            ])
+        );
+    }
 }

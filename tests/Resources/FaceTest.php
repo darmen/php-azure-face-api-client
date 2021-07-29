@@ -110,4 +110,106 @@ class FaceTest extends BaseTestCase
 
         $this->sut->detectWithUrl('any_url', 'any_detection_model', 1, 'any_recognition_model', 'any_attribute', false, true, true);
     }
+
+    public function testFindSimilarInLargeFaceListWithDefaultParameters()
+    {
+        $this->guzzler
+            ->expects($this->once())
+            ->post('findsimilars')
+            ->withHeader('Content-Type', 'application/json')
+            ->withJson([
+                'faceId' => 'any_face_id',
+                'largeFaceListId' => 'any_large_face_list_id',
+                'maxNumOfCandidatesReturned' => 20,
+                'mode' => 'matchPerson',
+            ])
+            ->willRespond($this->emptyJsonResponse());
+
+        $this->sut->findSimilarInLargeFaceList('any_face_id', 'any_large_face_list_id');
+    }
+
+    public function testFindSimilarInLargeFaceList()
+    {
+        $this->guzzler
+            ->expects($this->once())
+            ->post('findsimilars')
+            ->withHeader('Content-Type', 'application/json')
+            ->withJson([
+                'faceId' => 'any_face_id',
+                'largeFaceListId' => 'any_large_face_list_id',
+                'maxNumOfCandidatesReturned' => 10,
+                'mode' => 'matchFace',
+            ])
+            ->willRespond($this->emptyJsonResponse());
+
+        $this->sut->findSimilarInLargeFaceList('any_face_id', 'any_large_face_list_id', 10, 'matchFace');
+    }
+
+    public function testFindSimilarInFaceListWithDefaultParameters()
+    {
+        $this->guzzler
+            ->expects($this->once())
+            ->post('findsimilars')
+            ->withHeader('Content-Type', 'application/json')
+            ->withJson([
+                'faceId' => 'any_face_id',
+                'faceListId' => 'any_face_list_id',
+                'maxNumOfCandidatesReturned' => 20,
+                'mode' => 'matchPerson',
+            ])
+            ->willRespond($this->emptyJsonResponse());
+
+        $this->sut->findSimilarInFaceList('any_face_id', 'any_face_list_id');
+    }
+
+    public function testFindSimilarInFaceList()
+    {
+        $this->guzzler
+            ->expects($this->once())
+            ->post('findsimilars')
+            ->withHeader('Content-Type', 'application/json')
+            ->withJson([
+                'faceId' => 'any_face_id',
+                'faceListId' => 'any_face_list_id',
+                'maxNumOfCandidatesReturned' => 10,
+                'mode' => 'matchFace',
+            ])
+            ->willRespond($this->emptyJsonResponse());
+
+        $this->sut->findSimilarInFaceList('any_face_id', 'any_face_list_id', 10, 'matchFace');
+    }
+
+    public function testFindSimilarInFaceIdsArrayWithDefaultParameters()
+    {
+        $this->guzzler
+            ->expects($this->once())
+            ->post('findsimilars')
+            ->withHeader('Content-Type', 'application/json')
+            ->withJson([
+                'faceId' => 'any_face_id',
+                'faceIds' => ['any_face_id1', 'any_face_id2'],
+                'maxNumOfCandidatesReturned' => 20,
+                'mode' => 'matchPerson',
+            ])
+            ->willRespond($this->emptyJsonResponse());
+
+        $this->sut->findSimilarInFaceIdsArray('any_face_id', ['any_face_id1', 'any_face_id2']);
+    }
+
+    public function testFindSimilarInFaceIdsArray()
+    {
+        $this->guzzler
+            ->expects($this->once())
+            ->post('findsimilars')
+            ->withHeader('Content-Type', 'application/json')
+            ->withJson([
+                'faceId' => 'any_face_id',
+                'faceIds' => ['any_face_id1', 'any_face_id2'],
+                'maxNumOfCandidatesReturned' => 10,
+                'mode' => 'matchFace',
+            ])
+            ->willRespond($this->emptyJsonResponse());
+
+        $this->sut->findSimilarInFaceIdsArray('any_face_id', ['any_face_id1', 'any_face_id2'], 10, 'matchFace');
+    }
 }
