@@ -122,7 +122,7 @@ class FaceTest extends BaseTestCase
                 'largeFaceListId' => 'any_large_face_list_id',
                 'maxNumOfCandidatesReturned' => 20,
                 'mode' => 'matchPerson',
-            ])
+            ], true)
             ->willRespond($this->emptyJsonResponse());
 
         $this->sut->findSimilarInLargeFaceList('any_face_id', 'any_large_face_list_id');
@@ -139,7 +139,7 @@ class FaceTest extends BaseTestCase
                 'largeFaceListId' => 'any_large_face_list_id',
                 'maxNumOfCandidatesReturned' => 10,
                 'mode' => 'matchFace',
-            ])
+            ], true)
             ->willRespond($this->emptyJsonResponse());
 
         $this->sut->findSimilarInLargeFaceList('any_face_id', 'any_large_face_list_id', 10, 'matchFace');
@@ -156,7 +156,7 @@ class FaceTest extends BaseTestCase
                 'faceListId' => 'any_face_list_id',
                 'maxNumOfCandidatesReturned' => 20,
                 'mode' => 'matchPerson',
-            ])
+            ], true)
             ->willRespond($this->emptyJsonResponse());
 
         $this->sut->findSimilarInFaceList('any_face_id', 'any_face_list_id');
@@ -173,7 +173,7 @@ class FaceTest extends BaseTestCase
                 'faceListId' => 'any_face_list_id',
                 'maxNumOfCandidatesReturned' => 10,
                 'mode' => 'matchFace',
-            ])
+            ], true)
             ->willRespond($this->emptyJsonResponse());
 
         $this->sut->findSimilarInFaceList('any_face_id', 'any_face_list_id', 10, 'matchFace');
@@ -190,7 +190,7 @@ class FaceTest extends BaseTestCase
                 'faceIds' => ['any_face_id1', 'any_face_id2'],
                 'maxNumOfCandidatesReturned' => 20,
                 'mode' => 'matchPerson',
-            ])
+            ], true)
             ->willRespond($this->emptyJsonResponse());
 
         $this->sut->findSimilarInFaceIdsArray('any_face_id', ['any_face_id1', 'any_face_id2']);
@@ -207,9 +207,23 @@ class FaceTest extends BaseTestCase
                 'faceIds' => ['any_face_id1', 'any_face_id2'],
                 'maxNumOfCandidatesReturned' => 10,
                 'mode' => 'matchFace',
-            ])
+            ], true)
             ->willRespond($this->emptyJsonResponse());
 
         $this->sut->findSimilarInFaceIdsArray('any_face_id', ['any_face_id1', 'any_face_id2'], 10, 'matchFace');
+    }
+
+    public function testGroup()
+    {
+        $this->guzzler
+            ->expects($this->once())
+            ->post('group')
+            ->withHeader('Content-Type', 'application/json')
+            ->withJson([
+                'faceIds' => ['any_face_id1', 'any_face_id2'],
+            ], true)
+            ->willRespond($this->emptyJsonResponse());
+
+        $this->sut->group(['any_face_id1', 'any_face_id2']);
     }
 }

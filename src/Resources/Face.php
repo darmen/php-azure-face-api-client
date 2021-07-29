@@ -174,4 +174,22 @@ class Face extends Resource
             ])
         );
     }
+
+    /**
+     * Divide candidate faces into groups based on face similarity.
+     *
+     * @param array $faceIds Array of candidate faceId created by Face - Detect
+     * @return array
+     * @throws \GuzzleHttp\Exception\GuzzleException
+     */
+    public function group(array $faceIds): array
+    {
+        return $this->decodeJsonResponse(
+            $this->httpClient->post('group', [
+                'json' => [
+                    'faceIds' => $faceIds
+                ]
+            ])
+        );
+    }
 }
